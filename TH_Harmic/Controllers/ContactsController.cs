@@ -9,5 +9,11 @@ namespace TH_Harmic.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult PostContact()
+        {
+
+            return Ok();
+        }
     }
 }
