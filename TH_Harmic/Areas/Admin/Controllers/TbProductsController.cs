@@ -61,6 +61,8 @@ namespace TH_Harmic.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                tbProduct.CreatedDate = DateTime.Now;
+                tbProduct.CreatedBy = "Tuan";
                 _context.Add(tbProduct);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -82,6 +84,7 @@ namespace TH_Harmic.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
             ViewData["CategoryProductId"] = new SelectList(_context.TbProductCategories, "CategoryProductId", "CategoryProductId", tbProduct.CategoryProductId);
             return View(tbProduct);
         }
@@ -93,15 +96,22 @@ namespace TH_Harmic.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,Title,Alias,CategoryProductId,Description,Detail,Image,Price,PriceSale,Quantity,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,IsNew,IsBestSeller,UnitInStock,IsActive,Star")] TbProduct tbProduct)
         {
+
             if (id != tbProduct.ProductId)
             {
                 return NotFound();
             }
 
+            var productOld = await _context.TbProducts.FindAsync(id);
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    tbProduct.CreatedBy = productOld.CreatedBy;
+                    tbProduct.CreatedDate = productOld.CreatedDate;
+                    tbProduct.ModifiedDate = DateTime.Now;
+                    tbProduct.ModifiedBy = "Tuan";
                     _context.Update(tbProduct);
                     await _context.SaveChangesAsync();
                 }
