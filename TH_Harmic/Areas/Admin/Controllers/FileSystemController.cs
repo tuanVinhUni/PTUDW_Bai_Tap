@@ -3,10 +3,12 @@ using elFinder.NetCore;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TH_Harmic.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     [Route("/Admin/el-finder-file-system")]
     public class FileSystemController : Controller
     {

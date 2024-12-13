@@ -129,9 +129,9 @@ public partial class TH_HarmicContext : DbContext
 
         modelBuilder.Entity<TbContact>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("tb_Contact");
+            entity.HasKey(e => e.ContactId);
+
+            entity.ToTable("tb_Contact");
 
             entity.Property(e => e.ContactId).ValueGeneratedOnAdd();
             entity.Property(e => e.CreatedBy).HasMaxLength(150);
@@ -161,9 +161,9 @@ public partial class TH_HarmicContext : DbContext
         modelBuilder.Entity<TbMenu>(entity =>
         {
             entity.HasKey("MenuId");
-                entity.ToTable("tb_Menu");
+            entity.ToTable("tb_Menu");
 
-            
+
 
             entity.Property(e => e.Alias).HasMaxLength(150);
             entity.Property(e => e.CreatedBy).HasMaxLength(150);
